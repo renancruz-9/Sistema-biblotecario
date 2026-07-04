@@ -58,6 +58,7 @@ const userController = {
             res.status(200).json({
                 message: "Usuário removido com sucesso"
             });
+
         } catch (error) {
             console.error(error);
             res.status(500).json({
@@ -67,17 +68,15 @@ const userController = {
         }
     },
     criar: async (req, res) => {
-        const { name, email, password } = req.body;
+        const { nome, email, cpf, telefone } = req.body;
 
-        const hashedPassword = await userService.hashPassword(password);
-
-        const user = new User(name, email, hashedPassword);
+        const user = new User(nome, email, cpf, telefone);
 
         try {
-            // validação simples para garantir que name e email não estejam vazios
-            if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+            // validação simples para garantir que nome e email não estejam vazios
+            if (nome.trim() === "" || email.trim() === "" || telefone.trim() === "" || cpf.trim() === "") {
                 return res.status(400).json({
-                    message: "Nome, email e senha são obrigatórios"
+                    message: "Nome, email, telefone e CPF são obrigatórios"
                 });
             }
 
@@ -100,15 +99,15 @@ const userController = {
     },
     atualizar: async (req, res) => {
         const userId = Number(req.params.id);
-        const { name, email, password } = req.body;
+        const { name, email, cpf, telefone } = req.body;
 
-        const user = new User(name, email, password, userId);
+        const user = new User(name, email, cpf, telefone, userId);
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+            if (name.trim() === "" || email.trim() === "" || cpf.trim() === "" || telefone.trim() === "") {
                 return res.status(400).json({
-                    message: "Nome, email e senha são obrigatórios"
+                    message: "Nome, email, CPF e telefone são obrigatórios"
                 });
             }
 

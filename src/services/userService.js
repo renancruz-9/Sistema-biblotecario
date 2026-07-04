@@ -32,6 +32,18 @@ const userService = {
             throw new Error("Erro ao recuperar usuário por email: " + error.message);
         }
     },
+
+    recuperarUsuarioPorCpf: async (cpf) => {
+        try {
+            const resultado = await userRepository.selecionarPorCpf(cpf);
+            return resultado;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error("Erro ao recuperar usuário por CPF: " + error.message);
+        }
+    },
+
     removerUsuario: async (userId) => {
         try {
             const resultado = await userRepository.deletar(userId);
@@ -43,7 +55,7 @@ const userService = {
     },
     criarUsuario: async (user) => {
         try {
-            const resultado = await userRepository.criar(user.name, user.email, user.password);
+            const resultado = await userRepository.criar(user.nome, user.email, user.cpf, user.telefone);
             return resultado;
         } catch (error) {
             console.error(error);
@@ -52,7 +64,7 @@ const userService = {
     },
     atualizarUsuario: async (user) => {
         try {
-            const resultado = await userRepository.atualizar(user.id, user.name, user.email, user.password);
+            const resultado = await userRepository.atualizar(user.id, user.nome, user.email, user.cpf, user.telefone);
             return resultado;
         } catch (error) {
             console.error(error);
