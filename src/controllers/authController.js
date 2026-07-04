@@ -8,7 +8,7 @@ const authController = {
         try {
             const { email, password } = req.body;
 
-            const userExists = await userService.recuperarUsuarioPorEmail(
+            const livroExists = await userService.recuperarUsuarioPorEmail(
                 email.trim()
             )
 
