@@ -4,6 +4,7 @@ import userController from '../controllers/userController.js';
 const userRoutes = Router();
 
 userRoutes.post('/', userController.criar);
+// userRoutes.get('/email/:email', userController.selecionarPorEmail);
 userRoutes.put('/:id', userController.atualizar);
 userRoutes.delete('/:id', userController.deletar);
 userRoutes.get('/', userController.selecionar);

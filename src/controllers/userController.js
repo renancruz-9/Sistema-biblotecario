@@ -45,6 +45,31 @@ const userController = {
             });
         }
     },
+    // selecionarPorEmail: async (req, res) => {
+    //     const userEmail = Number(req.params.email);
+
+    //     try {
+    //         const usuario = await userService.recuperarUsuarioPorEmail(userEmail);
+
+    //         if (!usuario) {
+    //             return res.status(404).json({
+    //                 message: "Usuário não encontrado"
+    //             });
+    //         }
+
+    //         res.status(200).json({
+    //             message: "Usuário recuperado com sucesso",
+    //             data: usuario
+    //         });
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //         res.status(500).json({
+    //             message: "Erro ao recuperar usuário",
+    //             error: error.message
+    //         });
+    //     }
+    // },
     deletar: async (req, res) => {
         const userId = Number(req.params.id);
 
@@ -99,13 +124,13 @@ const userController = {
     },
     atualizar: async (req, res) => {
         const userId = Number(req.params.id);
-        const { name, email, cpf, telefone } = req.body;
-
-        const user = new User(name, email, cpf, telefone, userId);
+        const { nome, email, cpf, telefone } = req.body;
+        
+        const user = new User(nome, email, cpf, telefone, userId);
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (name.trim() === "" || email.trim() === "" || cpf.trim() === "" || telefone.trim() === "") {
+            if (nome.trim() == "" || email.trim() === "" || telefone.trim() === "" || cpf.trim() === "") {
                 return res.status(400).json({
                     message: "Nome, email, CPF e telefone são obrigatórios"
                 });

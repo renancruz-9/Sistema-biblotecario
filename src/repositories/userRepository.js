@@ -2,22 +2,22 @@ import pool from '../configs/Database.js';
 
 const userRepository = {
     selecionar: async () => {
-        const sql = 'SELECT id, name, email, password FROM users ORDER BY id DESC;';
+        const sql = 'SELECT * FROM Usuario ORDER BY id DESC;';
         const rows = await pool.execute(sql);
         return rows[0];
     },
     selecionarPorId: async (userId) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE id = ?;';
+        const sql = 'SELECT * FROM Usuario WHERE id = ?;';
         const rows = await pool.execute(sql, [userId]);
         return rows[0];
     },
-    selecionarPorEmail: async (email) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE email = ?;';
-        const rows = await pool.execute(sql, [email]);
-        return rows[0][0];
-    },
+    // selecionarPorEmail: async (email) => {
+    //     const sql = 'SELECT * FROM Usuario WHERE email = ?;';
+    //     const rows = await pool.execute(sql, [email]);
+    //     return rows[0];
+    // },
     deletar: async (userId) => {
-        const sql = 'DELETE FROM users WHERE id = ?;';
+        const sql = 'DELETE FROM Usuario WHERE id = ?;';
         const resultado = await pool.execute(sql, [userId]);
         return resultado[0];
     },
@@ -28,7 +28,8 @@ const userRepository = {
     },
     atualizar: async (userId, nome, email, cpf, telefone) => {
         const sql = 'UPDATE Usuario SET nome = ?, email = ?, cpf = ?, telefone = ? WHERE id = ?;';
-        const resultado = await pool.execute(sql, [nome.trim(), email.trim().toLowerCase(), cpf.trim(), telefone.trim(), userId]);
+        const resultado = await pool.execute(sql, [nome, email.trim().toLowerCase(), cpf.trim(), telefone.trim(), userId]);
+        console.log(nome, email, cpf, telefone)
         return resultado[0];
     }
 }

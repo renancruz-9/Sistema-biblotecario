@@ -22,27 +22,27 @@ const userService = {
             throw new Error("Erro ao recuperar usuário por ID: " + error.message);
         }
     },
-    recuperarUsuarioPorEmail: async (email) => {
-        try {
-            const resultado = await userRepository.selecionarPorEmail(email);
-            return resultado;
-        }
-        catch (error) {
-            console.error(error);
-            throw new Error("Erro ao recuperar usuário por email: " + error.message);
-        }
-    },
+    // recuperarUsuarioPorEmail: async (email) => {
+    //     try {
+    //         const resultado = await userRepository.selecionarPorEmail(email);
+    //         return resultado;
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //         throw new Error("Erro ao recuperar usuário por email: " + error.message);
+    //     }
+    // },
 
-    recuperarUsuarioPorCpf: async (cpf) => {
-        try {
-            const resultado = await userRepository.selecionarPorCpf(cpf);
-            return resultado;
-        }
-        catch (error) {
-            console.error(error);
-            throw new Error("Erro ao recuperar usuário por CPF: " + error.message);
-        }
-    },
+    // recuperarUsuarioPorCpf: async (cpf) => {
+    //     try {
+    //         const resultado = await userRepository.selecionarPorCpf(cpf);
+    //         return resultado;
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //         throw new Error("Erro ao recuperar usuário por CPF: " + error.message);
+    //     }
+    // },
 
     removerUsuario: async (userId) => {
         try {
@@ -64,6 +64,8 @@ const userService = {
     },
     atualizarUsuario: async (user) => {
         try {
+            console.log('teste: ', user.id, user.nome, user.email, user.cpf, user.telefone);
+            
             const resultado = await userRepository.atualizar(user.id, user.nome, user.email, user.cpf, user.telefone);
             return resultado;
         } catch (error) {
@@ -71,10 +73,6 @@ const userService = {
             throw new Error("Erro ao atualizar usuário: " + error.message);
         }
     },
-    hashPassword: async (password) => {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        return hashedPassword;
-    }
 }
 
 export default userService;
