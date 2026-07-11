@@ -1,35 +1,35 @@
-import autorRepository from "../repositories/userRepository.js";
-import autorService from "../services/autorService.js";
+import AutorRepository from "../repositories/autorRepository.js";
+import AutorService from "../services/autorService.js";
 import Autor from "../models/Autor.js";
 
 const autorController = {
     selecionar: async (req, res) => {
-        try {
-            const resultado = await userService.recuperarUsuarios();
+         try {
+            const resultado = await AutorService.recuperarAutor();
 
             res.status(200).json({
-                message: "Usuários recuperados com sucesso",
+                message: "Autores recuperados com sucesso",
                 data: resultado
             });
         }
-        catch (error) {
+         catch (error) {
             console.error(error);
             res.status(500).json({
-                message: "Erro ao recuperar usuários",
+                message: "Erro ao recuperar autores",
                 error: error.message
             });
         }
     },
     selecionarPorId: async (req, res) => {
-        const autorId = Number(req.params.id);
+            const autorId = Number(req.params.id);
 
-        try {
-            const Autor = await autorService.recuperarAutorPorId(autorId);
+         try {
+            const Autor = await AutorService.recuperarAutorPorId(autorId);
 
             if (!Autor) {
-                return res.status(404).json({
-                    message: "Autor não encontrado"
-                });
+              return res.status(404).json({
+                message: "Autor não encontrado"
+            });
             }
 
             res.status(200).json({
@@ -37,42 +37,41 @@ const autorController = {
                 data: Autor
             });
         }
-        catch (error) {
+         catch (error) {
             console.error(error);
             res.status(500).json({
                 message: "Erro ao recuperar o autor",
                 error: error.message
-            });
+             });
         }
     },
     deletar: async (req, res) => {
-        const autorId = Number(req.params.id);
+             const autorId = Number(req.params.id);
 
-        try {
-            const resultado = await autorService.removerAutor(autorId);
+         try {
+             const resultado = await AutorService.removerAutor(autorId);
 
-            if(resultado.affectedRows === 0) {
-                throw new Error("Autor não encontrado");
-            }
+            if (resultado.affectedRows === 0) {
+                throw new Error (" Autor não encontrado")
+            }        
 
             res.status(200).json({
                 message: "Autor removido com sucesso"
             });
-        } catch (error) {
+        }
+         catch (error) {
             console.error(error);
             res.status(500).json({
-                message: "Erro ao remover o autor",
-                error: error.message
+                 message: "Erro ao remover o autor",
+                 error: error.message
             });
         }
     },
-    criar: async (req, res) => {
-        const { nome, nacionalidade, data_nascimento } = req.body;
+    criar:  async (req, res) => {
+            const { nome, nacionalidade, data_nascimento } = req.body;
+            const autor = new Autor(nome, nacionalidade, data_nascimento);
 
-
-        const autor = new Autor(nome, nacionalidade, data_nascimento);
-
-        try {
+         try {
             // validação simples para garantir que name e email não estejam vazios
             if (nome.trim() === "" || nacionalidade.trim() === "" || data_nascimento.trim() === "") {
                 return res.status(400).json({
@@ -80,7 +79,7 @@ const autorController = {
                 });
             }
 
-            const resultado = await autorService.criarAutor(autor);
+            const resultado = await AutorService.criarAutor(autor);
 
             res.status(201).json({
                 message: "autor criado com sucesso",
@@ -88,8 +87,8 @@ const autorController = {
                     id: resultado.insertId
                 }
             });
-
-        } catch (error) {
+        }
+         catch (error) {
             console.error(error);
             res.status(500).json({
                 message: "Erro ao criar o autor",
@@ -98,20 +97,19 @@ const autorController = {
         }
     },
     atualizar: async (req, res) => {
-        const autorId = Number(req.params.id);
-        const { nome, nacionalidade, data_nascimento } = req.body;
+                const autorId = Number(req.params.id);
+                const { nome, nacionalidade, data_nascimento } = req.body;
+                const autor = new Autor(nome, nacionalidade, data_nascimento, autorId);
 
-        const autor = new Autor(nome, nacionalidade, data_nascimento, autorId);
-
-        try {
+         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (nome.trim() === "" || nacionalidade.trim() === "" || data_nascimento.trim() === "") {
+            if (nome.trim() === "" || nacionalidade.trim() === "") {
                 return res.status(400).json({
                     message: "Nome, nacionalidade e data de nascimento são obrigatórios"
-                });
+             });
             }
 
-            const resultado = await autorService.atualizarAutor(autor);
+                const resultado = await AutorService.atualizarAutor(autor);
 
             if (resultado.affectedRows === 0) {
                 throw new Error("Autor não encontrado");
@@ -120,7 +118,8 @@ const autorController = {
             res.status(200).json({
                 message: "Autor atualizado com sucesso"
             });
-        } catch (error) {
+        }
+         catch (error) {
             console.error(error);
             res.status(500).json({
                 message: "Erro ao atualizar Autor",

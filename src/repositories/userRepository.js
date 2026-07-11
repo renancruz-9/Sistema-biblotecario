@@ -16,9 +16,9 @@ const userRepository = {
         const rows = await pool.execute(sql, [email]);
         return rows[0][0];
     },
-    deletar: async (userId) => {
-        const sql = 'DELETE FROM users WHERE id = ?;';
-        const resultado = await pool.execute(sql, [userId]);
+    deletar: async (autorId) => {
+        const sql = 'DELETE FROM autor WHERE id = ?;';
+        const resultado = await pool.execute(sql, [autorId]);
         return resultado[0];
     },
     criar: async (name, email, password) => {

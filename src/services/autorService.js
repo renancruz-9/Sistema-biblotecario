@@ -2,43 +2,33 @@ import bcrypt from "bcrypt";
 import autorRepository from "../repositories/autorRepository.js";
 
 const autorService = {
-    recuperarUsuarios: async (req, res) => {
+    recuperarAutor: async (req, res) => {
         try {
             const resultado = await autorRepository.selecionar();
             return resultado;
         }
         catch (error) {
             console.error(error);
-            throw new Error("Erro ao recuperar usuários: " + error.message);
+            throw new Error("Erro ao recuperar autores: " + error.message);
         }
     },
-    recuperarUsuarioPorId: async (userId) => {
+    recuperarAutorPorId: async (autorId) => {
         try {
-            const resultado = await autorRepository.selecionarPorId(userId);
+            const resultado = await autorRepository.selecionarPorId(autorId);
             return resultado;
         }
         catch (error) {
             console.error(error);
-            throw new Error("Erro ao recuperar usuário por ID: " + error.message);
+            throw new Error("Erro ao recuperar autor por ID: " + error.message);
         }
     },
-    recuperarUsuarioPorEmail: async (email) => {
-        try {
-            const resultado = await autorRepository.selecionarPorEmail(email);
-            return resultado;
-        }
-        catch (error) {
-            console.error(error);
-            throw new Error("Erro ao recuperar usuário por email: " + error.message);
-        }
-    },
-    removerUsuario: async (userId) => {
+    removerAutor: async (userId) => {
         try {
             const resultado = await autorRepository.deletar(userId);
             return resultado;
         } catch (error) {
             console.error(error);
-            throw new Error("Erro ao remover usuário: " + error.message);
+            throw new Error("Erro ao remover autor: " + error.message);
         }
     },
     criarAutor: async (autor) => {
@@ -50,13 +40,14 @@ const autorService = {
             throw new Error("Erro ao criar usuário: " + error.message);
         }
     },
-    atualizarUsuario: async (user) => {
+    atualizarAutor: async (autor) => {
         try {
-            const resultado = await autorRepository.atualizar(user.id, user.name, user.email, user.password);
+            console.log(autor.nome, autor.nacionalidade, autor.data_nascimento)
+            const resultado = await autorRepository.atualizar(autor.id, autor.nome, autor.nacionalidade, autor.data_nascimento);
             return resultado;
         } catch (error) {
             console.error(error);
-            throw new Error("Erro ao atualizar usuário: " + error.message);
+            throw new Error("Erro ao atualizar autor: " + error.message);
         }
     }
 }

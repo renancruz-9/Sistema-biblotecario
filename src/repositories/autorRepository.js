@@ -2,33 +2,28 @@ import pool from '../configs/Database.js';
 
 const autorRepository = {
     selecionar: async () => {
-        const sql = 'SELECT id, name, email, password FROM users ORDER BY id DESC;';
+        const sql = 'SELECT id, nome, nacionalidade, data_nascimento FROM autor ORDER BY id DESC;';
         const rows = await pool.execute(sql);
         return rows[0];
     },
-    selecionarPorId: async (userId) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE id = ?;';
-        const rows = await pool.execute(sql, [userId]);
+    selecionarPorId: async (autorId) => {
+        const sql = 'SELECT id, nome, nacionalidade, data_nascimento FROM autor WHERE id = ?;';
+        const rows = await pool.execute(sql, [autorId]);
         return rows[0];
     },
-    selecionarPorEmail: async (email) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE email = ?;';
-        const rows = await pool.execute(sql, [email]);
-        return rows[0][0];
-    },
     deletar: async (userId) => {
-        const sql = 'DELETE FROM users WHERE id = ?;';
+        const sql = 'DELETE FROM autor WHERE id = ?;';
         const resultado = await pool.execute(sql, [userId]);
         return resultado[0];
     },
     criar: async (nome, nacionalidade, data_nascimento) => {
-        const sql = 'INSERT INTO Autor (nome, nacionalidade, data_nascimento) VALUES (?, ?, ?);';
+        const sql = 'INSERT INTO autor (nome, nacionalidade, data_nascimento) VALUES (?, ?, ?);';
         const resultado = await pool.execute(sql, [nome, nacionalidade, data_nascimento]);
         return resultado[0];
     },
-    atualizar: async (userId, name, email, password) => {
-        const sql = 'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?;';
-        const resultado = await pool.execute(sql, [name.trim(), email.trim().toLowerCase(), password, userId]);
+    atualizar: async (autorId, nome, nacionalidade, data_nascimento) => {
+        const sql = 'UPDATE autor SET nome = ?, nacionalidade = ?, data_nascimento = ? WHERE id = ?;';
+        const resultado = await pool.execute(sql, [nome.trim(), nacionalidade.trim().toLowerCase(), data_nascimento, autorId]);
         return resultado[0];
     }
 }
