@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import userRoutes from './routes/userRoutes.js';
+import mysql from 'mysql2/promise';
+import livrosRoutes from './routes/livrosRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import autorRoutes from './routes/AutorRoutes.js';
 
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/autor', autorRoutes);
 app.use('/auth', authRoutes);
+app.use('/livros', livrosRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
