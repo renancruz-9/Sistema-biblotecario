@@ -23,14 +23,14 @@ const livroService = {
             throw new Error("Erro ao recuperar livro por ID: " + error.message);
         }
     },
-    recuperarLivroPorIsbn: async (isbn) => {
+    recuperarLivroPorIsbn: async (livroIsbn) => {
         try {
-            const resultado = await livroRepository.selecionarPorIsbn(isbn);
+            const resultado = await livroRepository.selecionarPorIsbn(livroIsbn);
             return resultado;
         }
         catch (error) {
             console.error(error);
-            throw new Error("Erro ao recuperar Livro por ISBN: " + error.message);
+            throw new Error("Erro ao recuperar livro por ISBN: " + error.message);
         }
     },
     removerLivro: async (livroId) => {
@@ -53,7 +53,7 @@ const livroService = {
     },
     atualizarLivro: async (livro) => {
         try {
-            const resultado = await livroRepository.atualizar(livro.id, livro.titulo, livro.isbn, livro.anoPublicacao);
+            const resultado = await livroRepository.atualizar(livro.id, livro.titulo, livro.isbn, livro.anoPublicacao, livro.quantidade);
             return resultado;
         } catch (error) {
             console.error(error);

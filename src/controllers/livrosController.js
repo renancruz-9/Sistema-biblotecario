@@ -1,5 +1,5 @@
 import Livro from "../models/Livro.js";
-import livroRepository from "../repositories/livroRepository.js";
+import livroRepositorys from "../repositories/livroRepository.js";
 import livroService from "../services/livrosService.js";
 
 const livroController = {
@@ -34,7 +34,34 @@ const livroController = {
 
             res.status(200).json({
                 message: "Livro recuperado com sucesso",
-                data: livros
+                data: livro
+            });
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: "Erro ao recuperar Livro",
+                error: error.message
+            });
+        }
+    },
+    selecionarPorIsbn: async (req, res) => {
+        const livroIsbn = Number(req.params.isbn);
+
+        try {
+            const livro = await livroService.recuperarLivroPorIsbn(livroIsbn);
+
+            console.log(livro)
+
+            if (!livro) {
+                return res.status(404).json({
+                    message: "Livros não encontrado"
+                });
+            }
+
+            res.status(200).json({
+                message: "Livro recuperado com sucesso",
+                data: livro
             });
         }
         catch (error) {
@@ -99,13 +126,13 @@ const livroController = {
     },
     atualizar: async (req, res) => {
         const livroId = Number(req.params.id);
-        const { titulo, isbn, anoPublicacao } = req.body;
+        const { titulo, isbn, anoPublicacao, quantidade } = req.body;
 
-        const livro = new Livro(titulo,isbn, anoPublicacao, livroId);
+        const livro = new Livro(titulo,isbn, anoPublicacao, quantidade, livroId);
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (titulo.trim() === "" || isbn.trim() === '' || anoPublicacao.trim() === '') {
+            if (titulo.trim() === "" || isbn.trim() === '' || quantidade <= 0) {
                 return res.status(400).json({
                     message: "titulo do livro isbn e ano da publicaçao são obrigatorios"
                 });
