@@ -5,6 +5,7 @@ import mysql from 'mysql2/promise';
 import livrosRoutes from './routes/livrosRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import autorRoutes from './routes/AutorRoutes.js';
+import emprestimoRoutes from './routes/emprestimoRoutes.js';
 
 const port = 3000;
 
@@ -15,6 +16,7 @@ app.use('/users', userRoutes);
 app.use('/autor', autorRoutes);
 app.use('/auth', authRoutes);
 app.use('/livros', livrosRoutes);
+app.use('/emprestimo', emprestimoRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
