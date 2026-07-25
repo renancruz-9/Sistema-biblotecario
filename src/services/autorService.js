@@ -22,9 +22,9 @@ const autorService = {
             throw new Error("Erro ao recuperar autor por ID: " + error.message);
         }
     },
-    removerAutor: async (userId) => {
+    removerAutor: async (autorId) => {
         try {
-            const resultado = await autorRepository.deletar(userId);
+            const resultado = await autorRepository.deletar(autorId);
             return resultado;
         } catch (error) {
             console.error(error);

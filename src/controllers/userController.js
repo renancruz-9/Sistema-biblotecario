@@ -71,23 +71,23 @@ const userController = {
     //     }
     // },
     deletar: async (req, res) => {
-        const userId = Number(req.params.id);
+        const autorId = Number(req.params.id);
 
         try {
-            const resultado = await userService.removerUsuario(userId);
+            const resultado = await userService.removerUsuario(autorId);
 
             if(resultado.affectedRows === 0) {
-                throw new Error("Usuário não encontrado");
+                throw new Error("Autor não encontrado");
             }
 
             res.status(200).json({
-                message: "Usuário removido com sucesso"
+                message: "Autor removido com sucesso"
             });
 
         } catch (error) {
             console.error(error);
             res.status(500).json({
-                message: "Erro ao remover usuário",
+                message: "Erro ao remover autor",
                 error: error.message
             });
         }
