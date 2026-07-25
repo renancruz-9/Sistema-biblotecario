@@ -4,7 +4,7 @@ import userRoutes from './routes/userRoutes.js';
 import mysql from 'mysql2/promise';
 import livrosRoutes from './routes/livrosRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import autorRoutes from './routes/AutorRoutes.js';
+import autorRoutes from './routes/autorRoutes.js';
 import emprestimoRoutes from './routes/emprestimoRoutes.js';
 
 const port = 3000;
