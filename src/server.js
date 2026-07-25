@@ -7,8 +7,6 @@ import authRoutes from './routes/authRoutes.js';
 import autorRoutes from './routes/autorRoutes.js';
 import emprestimoRoutes from './routes/emprestimoRoutes.js';
 
-const port = 3000;
-
 const app = express();
 	
 app.use(express.json());
@@ -18,6 +16,6 @@ app.use('/auth', authRoutes);
 app.use('/livros', livrosRoutes);
 app.use('/emprestimo', emprestimoRoutes);
 
-app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
+app.listen(process.env.PORT_SERVER, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT_SERVER}`);
 });
