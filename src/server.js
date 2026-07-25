@@ -16,6 +16,6 @@ app.use('/auth', authRoutes);
 app.use('/livros', livrosRoutes);
 app.use('/emprestimo', emprestimoRoutes);
 
-app.listen(process.env.PORT_SERVER, () => {
-    console.log(`Servidor rodando na porta ${process.env.PORT_SERVER}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT}`);
 });
